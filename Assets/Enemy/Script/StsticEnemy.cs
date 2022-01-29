@@ -5,8 +5,11 @@ using UnityEngine;
 public class StsticEnemy : Enemy
 {
     private GameObject PlayerTranslate;
+    public GameObject bulletPos;
     public GameObject bullet;//ã ÇÃê∂ê¨
-    public float BullletSpacing = 1.5f;
+    [SerializeField] private float _timeInterval;
+    private float _timeElapsed = 4.0f;
+
    
     void Start()
     {
@@ -18,7 +21,16 @@ public class StsticEnemy : Enemy
     {
         if (Hostility)
         {
-            InvokeRepeating("Shot", 0f, BullletSpacing);
+            _timeElapsed += Time.deltaTime;
+
+            if (_timeElapsed > _timeInterval)
+            {
+                Shot();
+
+                // åoâﬂéûä‘Çå≥Ç…ñﬂÇ∑
+                _timeElapsed = 0.0f;
+            }
+            
             
         }
     }
@@ -26,11 +38,29 @@ public class StsticEnemy : Enemy
     private void Shot()
     {
         PlayerTranslate = GameObject.FindWithTag("Player");
-        var aim = this.PlayerTranslate.transform.position - this.transform.position;
-        var look = Quaternion.LookRotation(aim);
-        this.transform.localRotation = look;
+
+        Vector3 dir = (PlayerTranslate.transform.position - this.transform.position);
+        
+        transform.rotation = Quaternion.FromToRotation(Vector3.right, dir);
+
         GameObject Bullet = Instantiate(bullet) as GameObject;
+        Bullet.transform.rotation = this.transform.rotation;
+       Bullet.transform.position = bulletPos.transform.position;
     }
 
-    
+    void OnCollisionEnter(Collision collision)
+    {
+
+        if (collision.gameObject.tag == "Player")//ìGà”îªíË
+        {
+            isHostility();
+        }
+
+        if (collision.gameObject.tag == "Bullet")//è¡ñ≈
+        {
+            Vanish();
+        }
+    }
+
+
 }
