@@ -13,12 +13,12 @@ public class DynamicEnemy : Enemy
 
     void Start()
     {
-        Hostility = false;
+        IsHostility = false;
     }
 
     void Update()
     {
-        if (Hostility)
+        if (IsHostility)
         {
             Move();
         }
@@ -50,15 +50,29 @@ public class DynamicEnemy : Enemy
 
 
 
-    protected override void OnTriggerEnter2D(Collider2D other)
+    //protected override void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    if (other.tag == "Player" && IsHostility)//çUåÇîªíË
+    //    {
+    //        Attack(other.gameObject.GetComponent<IDamagable>());
+    //    }
+    //    else if (other.tag == "Player")
+    //    {
+    //        IsHostility = true;
+    //        base.PropagateHostility();
+    //    }
+    //}
+
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        if (other.tag == "Player" && Hostility)//çUåÇîªíË
+        if (collision.transform.tag == "Player" && IsHostility)//çUåÇîªíË
         {
-            Attack(other.gameObject.GetComponent<IDamagable>());
+            Attack(collision.gameObject.GetComponent<IDamagable>());
         }
-        else if (other.tag == "Player")
+        else if (collision.transform.tag == "Player")
         {
             IsHostility = true;
+            base.PropagateHostility();
         }
     }
 

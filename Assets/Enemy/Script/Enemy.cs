@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 
 public class Enemy : MonoBehaviour, IDamagable
 {
-    public bool Hostility = false; //ìGà”ÇÃêÿÇËë÷Ç¶
     private Enemy nearObj;
+    private float propagationDist = 10;
 
     //public void isHostility()
     //{
@@ -23,8 +24,9 @@ public class Enemy : MonoBehaviour, IDamagable
         {
             if (value == true)
             {
-                nearObj = serchTag(gameObject);
-                nearObj.Hostility = true;
+                //nearObj = serchTag(gameObject);
+                //nearObj.IsHostility = true;
+                //this.PropagateHostility();
             }
             this._isHostility = value;
         }
@@ -34,7 +36,10 @@ public class Enemy : MonoBehaviour, IDamagable
     {
 
     }
-
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
+    {
+        
+    }
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
 
@@ -61,7 +66,6 @@ public class Enemy : MonoBehaviour, IDamagable
 
         foreach (Enemy obs in GameObject.FindObjectsOfType<Enemy>())
         {
-
             tmpDis = Vector3.Distance(obs.transform.position, nowObj.transform.position);
             if (nearDis == 0 || nearDis > tmpDis)
             {
@@ -71,6 +75,21 @@ public class Enemy : MonoBehaviour, IDamagable
         }
 
         return targetObj;
+    }
+
+    protected void PropagateHostility()
+    {
+        var hits = Physics2D.OverlapCircleAll(this.transform.position, propagationDist, LayerMask.GetMask("Enemy"))
+            .Select(item => item.transform.GetComponent<Enemy>());
+        foreach (var hit in hits)
+        {
+            hit.IsHostility = true;
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(this.transform.position, propagationDist);
     }
 
     public void Damaged<T>(float damage, T context)
