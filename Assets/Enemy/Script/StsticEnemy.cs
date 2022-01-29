@@ -5,21 +5,25 @@ using UnityEngine;
 public class StsticEnemy : Enemy
 {
     private GameObject PlayerTranslate;
-    public GameObject bulletPos;
-    public GameObject bullet;//ã ÇÃê∂ê¨
-    [SerializeField] private float _timeInterval;
-    private float _timeElapsed = 4.0f;
+    [SerializeField]
+    private GameObject bulletPos;
+    [SerializeField]
+    private Transform bulletBox;
+    [SerializeField]
+    private GameObject bullet;//ã ÇÃê∂ê¨
+    [SerializeField] private float _timeInterval = 4;
+    private float _timeElapsed = 0;
 
-   
+
     void Start()
     {
-        Hostility = false;
+        IsHostility = false;
     }
 
-   
+
     void Update()
     {
-        if (Hostility)
+        if (IsHostility)
         {
             _timeElapsed += Time.deltaTime;
 
@@ -30,8 +34,8 @@ public class StsticEnemy : Enemy
                 // åoâﬂéûä‘Çå≥Ç…ñﬂÇ∑
                 _timeElapsed = 0.0f;
             }
-            
-            
+
+
         }
     }
 
@@ -39,26 +43,22 @@ public class StsticEnemy : Enemy
     {
         PlayerTranslate = GameObject.FindWithTag("Player");
 
-        Vector3 dir = (PlayerTranslate.transform.position - this.transform.position);
-        
-        transform.rotation = Quaternion.FromToRotation(Vector3.right, dir);
+        Vector3 dir = (PlayerTranslate.transform.position - bulletBox.position);
+
+        bulletBox.rotation = Quaternion.FromToRotation(Vector3.right, dir);
 
         GameObject Bullet = Instantiate(bullet) as GameObject;
-        Bullet.transform.rotation = this.transform.rotation;
-       Bullet.transform.position = bulletPos.transform.position;
+        Bullet.transform.rotation = bulletBox.rotation;
+        Bullet.transform.position = bulletPos.transform.position;
     }
 
-    void OnCollisionEnter(Collision collision)
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
 
         if (collision.gameObject.tag == "Player")//ìGà”îªíË
         {
-            isHostility();
-        }
-
-        if (collision.gameObject.tag == "Bullet")//è¡ñ≈
-        {
-            Vanish();
+            IsHostility = true;
+            base.PropagateHostility();
         }
     }
 

@@ -44,7 +44,6 @@ public class DynamicEnemy : Enemy
 
     protected override void Attack(IDamagable target)
     {
-
         target.Damaged<Enemy>(AtkPower, this);
     }
 

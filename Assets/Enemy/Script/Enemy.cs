@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour, IDamagable
     //{
     //    Hostility = true;
     //}
+    [SerializeField]
     private bool _isHostility = false;
     public bool IsHostility
     {
