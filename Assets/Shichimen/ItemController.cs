@@ -4,17 +4,15 @@ using UnityEngine;
 
 public class ItemController : MonoBehaviour
 {
-    public AudioClip ItemSE;
-    AudioSource AudioSource;
+    SoundManager soundManager;
     public int ItemEnergy;
-    
+    AudioClip itemSE;
 
     float delta = 0.0f;
     float span = 0.2f;
     // Start is called before the first frame update
     void Start()
     {
-        AudioSource = GetComponent<AudioSource>();
         
     }
     void OnTriggerEnter2D(Collider2D collision)
@@ -22,7 +20,7 @@ public class ItemController : MonoBehaviour
         //ƒ^ƒO‚Ì–¼‘O‚Í‰¼‚Å‚·
         if (collision.gameObject.tag == "Player")
         {
-            AudioSource.PlayOneShot(ItemSE);
+            soundManager.PlaySE(itemSE);
             Destroy(gameObject);
         }
     }
