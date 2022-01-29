@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletController : MonoBehaviour
+public class BulletController : MonoBehaviour,IDamagable
 {
-    //IDamageble damageble;
+    
     public float speed;
 
     
@@ -31,12 +31,17 @@ public class BulletController : MonoBehaviour
             Debug.Log("Hit");
             SoundManager.Instance.PlaySE(BulletHitEnemy);
         }
-        //damageble.;
+        
         Destroy(gameObject);
     }
 
     private void OnBecameInvisible()
     {
         Destroy(gameObject);
+    }
+
+    public void Damaged<T>(float damage, T context)
+    {
+        throw new System.NotImplementedException();
     }
 }
