@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IDamagable
 {
+    [SerializeField]
+    private GameManager manager = null;
+
     private float _playerHp;
     public float PlayerHp
     {
@@ -14,7 +17,7 @@ public class Player : MonoBehaviour, IDamagable
             {
                 _playerHp = 0;
                 // TODO: Gameover
-                
+                manager?.GameOver();
             } else if (_playerHp > maxHp)
             {
                 _playerHp = maxHp;

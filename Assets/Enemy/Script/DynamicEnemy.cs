@@ -8,6 +8,9 @@ public class DynamicEnemy : Enemy
     public float speed = 0.01f;//ìGÇÃí«Ç§ÉXÉsÅ[Éh
     private GameObject PlayerPosition;
 
+    [SerializeField]
+    private int AtkPower = 10;
+
     void Start()
     {
         Hostility = false;
@@ -25,7 +28,7 @@ public class DynamicEnemy : Enemy
     private void Move()
     {
         PlayerPosition = GameObject.FindWithTag("Player");
-        transform.position =Vector3.MoveTowards(transform.position, PlayerPosition.transform.position, speed);
+        transform.position = Vector3.MoveTowards(transform.position, PlayerPosition.transform.position, speed);
 
         Quaternion rotation = this.transform.localRotation;
         if (transform.position.x < PlayerPosition.transform.position.x)
@@ -39,22 +42,27 @@ public class DynamicEnemy : Enemy
         this.transform.localRotation = rotation;
     }
 
-    private void Attack()
+    protected override void Attack(IDamagable target)
     {
-        //IDamaseble();
+
+        target.Damaged<Enemy>(AtkPower, this);
     }
 
 
-    void OnTriggerEnter(Collider other)
+
+    protected override void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "player"&&Hostility)//çUåÇîªíË
+        if (other.tag == "Player" && Hostility)//çUåÇîªíË
         {
-            Attack();
+            Attack(other.gameObject.GetComponent<IDamagable>());
         }
-
-        
+        else if (other.tag == "Player")
+        {
+            IsHostility = true;
+        }
     }
+
 }
 
-    
+
 
