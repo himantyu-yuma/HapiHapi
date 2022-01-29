@@ -7,10 +7,7 @@ public class GameManager : MonoBehaviour
 {
     GameObject player;
     GameObject enemy;
-    public AudioClip ItemSE;
-    public AudioClip BulletHitPlayerSE;
-    public AudioClip BulletHitEnemySE;
-    AudioSource AudioSource;
+    
 
     enum SEs 
     {
