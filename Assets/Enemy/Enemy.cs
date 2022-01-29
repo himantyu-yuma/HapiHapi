@@ -6,7 +6,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public  bool Hostility = false; //ìGà”ÇÃêÿÇËë÷Ç¶
-    private GameObject nearObj;
+    private Enemy nearObj;
 
     public void isHostility()
     {
@@ -24,7 +24,9 @@ public class Enemy : MonoBehaviour
         {
             isHostility();
             nearObj = serchTag(gameObject);
-            nearObj.Enemy.Hostility = true;
+            nearObj.Hostility = true;
+                
+            
         }
 
         if (other.gameObject.tag == "Bullet")//è¡ñ≈
@@ -32,18 +34,17 @@ public class Enemy : MonoBehaviour
             Vanish();
         }
     }
-
-    GameObject serchTag(GameObject nowObj)
+    
+    Enemy serchTag(GameObject nowObj)
     {
         float tmpDis = 0;           
         float nearDis = 0;          
-        GameObject targetObj = null; 
+        Enemy targetObj = null; 
         
-        foreach (GameObject obs in GameObject.FindGameObjectsWithTag("Enemy"))
+        foreach (Enemy obs in GameObject.FindObjectsOfType<Enemy>())
         {
             
             tmpDis = Vector3.Distance(obs.transform.position, nowObj.transform.position);
-            
             if (nearDis == 0 || nearDis > tmpDis)
             {
                 nearDis = tmpDis;
@@ -53,5 +54,5 @@ public class Enemy : MonoBehaviour
         
         return targetObj;
     }
-
+    
 }
