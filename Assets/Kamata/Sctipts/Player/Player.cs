@@ -1,0 +1,51 @@
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class Player : MonoBehaviour, IDamagable
+{
+    private float _playerHp;
+    public float PlayerHp
+    {
+        get => _playerHp;
+        set
+        {
+            _playerHp = value;
+            if (_playerHp < 0)
+            {
+                _playerHp = 0;
+                // TODO: Gameover
+                
+            } else if (_playerHp > maxHp)
+            {
+                _playerHp = maxHp;
+            }
+            // TODO: update UI text?
+            
+        }
+    }
+
+    private bool _isLarge;
+    public bool IsLarge
+    {
+        get => _isLarge;
+        set
+        {
+            _isLarge = value;
+            Variables.Object(gameObject).Set("IsLarge", _isLarge); 
+        }
+    }
+
+    [SerializeField] private float maxHp = 100f;
+
+    private void Awake()
+    {
+        _playerHp = maxHp;
+        _isLarge = false;
+    }
+
+    public void Damaged<T>(float damage, T context)
+    {
+        // TODO: Do something
+        PlayerHp -= damage;
+    }
+}
