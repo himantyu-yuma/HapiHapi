@@ -33,7 +33,4 @@ public class ItemController : MonoBehaviour
     {
         Destroy(gameObject);
     }
-
-
-
 }

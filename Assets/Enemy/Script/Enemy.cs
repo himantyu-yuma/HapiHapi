@@ -1,49 +1,72 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamagable
 {
-    public  bool Hostility = false; //ìGà”ÇÃêÿÇËë÷Ç¶
     private Enemy nearObj;
+    private float propagationDist = 10;
 
-    public void isHostility()
+    //public void isHostility()
+    //{
+    //    Hostility = true;
+    //}
+    [SerializeField]
+    private bool _isHostility = false;
+    public bool IsHostility
     {
-        Hostility = true;
+        get
+        {
+            return this._isHostility;
+        }
+        set
+        {
+            if (value == true)
+            {
+                //nearObj = serchTag(gameObject);
+                //nearObj.IsHostility = true;
+                //this.PropagateHostility();
+            }
+            this._isHostility = value;
+        }
     }
 
-    private void Vanish()
+    protected virtual void Attack(IDamagable target)
     {
-        Destroy(gameObject,0.0f);//0ïbå„Ç…è¡ñ≈
+
     }
-    void OnTriggerEnter(Collider other)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         
-        if (other.gameObject.tag == "Player")//ìGà”îªíË
-        {
-            isHostility();
-            nearObj = serchTag(gameObject);
-            nearObj.Hostility = true;
-                
-            
-        }
-
-        if (other.gameObject.tag == "Bullet")//è¡ñ≈
-        {
-            Vanish();
-        }
     }
-    
+    protected virtual void OnTriggerEnter2D(Collider2D other)
+    {
+
+    }
+
+    //private void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    Debug.Log("became enemy");
+
+
+    //    if (other.tag == "Player")//ìGà”îªíË
+    //    {
+    //        isHostility();
+    //        nearObj = serchTag(gameObject);
+    //        nearObj.Hostility = true;
+    //    }
+    //}
+
     Enemy serchTag(GameObject nowObj)
     {
-        float tmpDis = 0;           
-        float nearDis = 0;          
-        Enemy targetObj = null; 
-        
+        float tmpDis = 0;
+        float nearDis = 0;
+        Enemy targetObj = null;
+
         foreach (Enemy obs in GameObject.FindObjectsOfType<Enemy>())
         {
-            
             tmpDis = Vector3.Distance(obs.transform.position, nowObj.transform.position);
             if (nearDis == 0 || nearDis > tmpDis)
             {
@@ -51,8 +74,27 @@ public class Enemy : MonoBehaviour
                 targetObj = obs;
             }
         }
-        
+
         return targetObj;
     }
-    
+
+    protected void PropagateHostility()
+    {
+        var hits = Physics2D.OverlapCircleAll(this.transform.position, propagationDist, LayerMask.GetMask("Enemy"))
+            .Select(item => item.transform.GetComponent<Enemy>());
+        foreach (var hit in hits)
+        {
+            hit.IsHostility = true;
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(this.transform.position, propagationDist);
+    }
+
+    public void Damaged<T>(float damage, T context)
+    {
+        Destroy(gameObject, 0.0f);//0ïbå„Ç…è¡ñ≈
+    }
 }
