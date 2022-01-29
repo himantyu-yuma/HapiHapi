@@ -6,6 +6,7 @@ public class StsticEnemy : Enemy
 {
     private GameObject PlayerTranslate;
     public GameObject bullet;//ã ÇÃê∂ê¨
+    public float BullletSpacing = 1.5f;
    
     void Start()
     {
@@ -17,14 +18,14 @@ public class StsticEnemy : Enemy
     {
         if (Hostility)
         {
-            InvokeRepeating("Shot", 0f, 1.5f);
+            InvokeRepeating("Shot", 0f, BullletSpacing);
             
         }
     }
 
     private void Shot()
     {
-        PlayerTranslate = GameObject.FindWithTag("play");
+        PlayerTranslate = GameObject.FindWithTag("Player");
         var aim = this.PlayerTranslate.transform.position - this.transform.position;
         var look = Quaternion.LookRotation(aim);
         this.transform.localRotation = look;

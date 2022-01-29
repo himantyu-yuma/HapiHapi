@@ -5,7 +5,7 @@ using UnityEngine;
 public class DynamicEnemy : Enemy
 {
 
-    public float speed = 0.2f;//敵の追うスピード
+    public float speed = 0.01f;//敵の追うスピード
     private GameObject PlayerPosition;
 
     void Start()
@@ -24,8 +24,19 @@ public class DynamicEnemy : Enemy
 
     private void Move()
     {
-        PlayerPosition = GameObject.FindWithTag("player");
+        PlayerPosition = GameObject.FindWithTag("Player");
         transform.position =Vector3.MoveTowards(transform.position, PlayerPosition.transform.position, speed);
+
+        Quaternion rotation = this.transform.localRotation;
+        if (transform.position.x < PlayerPosition.transform.position.x)
+        {
+            rotation.y = 180.0f;
+        }
+        else
+        {
+            rotation.y = 0.0f;
+        }
+        this.transform.localRotation = rotation;
     }
 
     private void Attack()

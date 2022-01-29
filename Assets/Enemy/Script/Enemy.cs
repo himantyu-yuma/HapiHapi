@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         
-        if (other.gameObject.tag == "player")//“GˆÓ”»’è
+        if (other.gameObject.tag == "Player")//“GˆÓ”»’è
         {
             isHostility();
             nearObj = serchTag(gameObject);
