@@ -1,26 +1,29 @@
 ﻿using System;
 using UnityEngine;
 
-public class SoundExample : MonoBehaviour
+namespace Yasuyuki
 {
-    [SerializeField] private AudioClip bgmClip;
-    [SerializeField] private AudioClip seClip;
-    
-    private void OnGUI()
+    public class SoundExample : MonoBehaviour
     {
-        if (GUILayout.Button("Play BGM"))
-        {
-            SoundManager.Instance.PlayBGM(bgmClip);
-        }
+        [SerializeField] private AudioClip bgmClip;
+        [SerializeField] private AudioClip seClip;
 
-        if (GUILayout.Button("Stop BGM"))
+        private void OnGUI()
         {
-            SoundManager.Instance.StopBGM();
-        }
+            if (GUILayout.Button("Play BGM"))
+            {
+                SoundManager.Instance.PlayBGM(bgmClip);
+            }
 
-        if (GUILayout.Button("Play SE"))
-        {
-            SoundManager.Instance.PlaySE(seClip);
+            if (GUILayout.Button("Stop BGM"))
+            {
+                SoundManager.Instance.StopBGM();
+            }
+
+            if (GUILayout.Button("Play SE"))
+            {
+                SoundManager.Instance.PlaySE(seClip);
+            }
         }
     }
 }
