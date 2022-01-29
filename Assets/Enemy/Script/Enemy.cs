@@ -5,37 +5,27 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public  bool Hostility = false; //ìGà”ÇÃêÿÇËë÷Ç¶
+    public  bool Hostility ; //ìGà”ÇÃêÿÇËë÷Ç¶
     private Enemy nearObj;
+
+    
+
+    public void Vanish()
+    {
+        Destroy(gameObject,0.0f);//0ïbå„Ç…è¡ñ≈
+    }
+
+
+    
 
     public void isHostility()
     {
         Hostility = true;
+        nearObj = serchTag(gameObject);
+        nearObj.Hostility = true;
     }
 
-    private void Vanish()
-    {
-        Destroy(gameObject,0.0f);//0ïbå„Ç…è¡ñ≈
-    }
-    void OnTriggerEnter(Collider other)
-    {
-        
-        if (other.gameObject.tag == "Player")//ìGà”îªíË
-        {
-            isHostility();
-            nearObj = serchTag(gameObject);
-            nearObj.Hostility = true;
-                
-            
-        }
-
-        if (other.gameObject.tag == "Bullet")//è¡ñ≈
-        {
-            Vanish();
-        }
-    }
-    
-    Enemy serchTag(GameObject nowObj)
+    Enemy serchTag(GameObject nowObj)//ìGà”ÇÃì`îd
     {
         float tmpDis = 0;           
         float nearDis = 0;          

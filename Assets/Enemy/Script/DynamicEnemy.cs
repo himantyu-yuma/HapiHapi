@@ -10,7 +10,7 @@ public class DynamicEnemy : Enemy
 
     void Start()
     {
-        Hostility = false;
+       
     }
 
     void Update()
@@ -45,15 +45,25 @@ public class DynamicEnemy : Enemy
     }
 
 
-    void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision collision)
     {
-        if (other.gameObject.tag == "player"&&Hostility)//çUåÇîªíË
+       
+        if (collision.gameObject.tag == "Player"&&Hostility)//çUåÇîªíË
         {
             Attack();
         }
+        if (collision.gameObject.tag == "Player")//ìGà”îªíË
+        {
+            isHostility();
+        }
 
-        
+        if (collision.gameObject.tag == "Bullet")//è¡ñ≈
+        {
+            Vanish();
+        }
+
     }
+
 }
 
     
