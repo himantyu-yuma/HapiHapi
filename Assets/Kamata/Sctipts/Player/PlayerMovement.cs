@@ -1,7 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.VFX;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -18,6 +17,13 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _currentDirection = new(1f, 0f);
     private float _elapsedTime;
     [SerializeField] private float moveForceMultiplier = 1f;
+    [SerializeField] private Sprite faceSpriteNormal;
+    [SerializeField] private Sprite faceSpriteNormalGoingDown;
+    private SpriteRenderer _faceSpriteRendererNormal;
+    private SpriteRenderer _faceSpriteRendererLarge;
+
+    [SerializeField] private AudioClip dashSoundEffect;
+
     public bool IsDash { get; set; }
     public bool IsShot { get; set; }
 
@@ -41,12 +47,37 @@ public class PlayerMovement : MonoBehaviour
         _moveAction.performed += OnChangeDirection;
         _shotAction.started += OnShotPressed;
         _shotAction.canceled += OnShotReleased;
+        foreach (var spriteRenderer in GetComponentsInChildren<SpriteRenderer>(true))
+        {
+            switch (spriteRenderer.name)
+            {
+                case "FireBall_Face":
+                    _faceSpriteRendererNormal = spriteRenderer;
+                    break;
+                case "FireBall_Face_Big":
+                    _faceSpriteRendererLarge = spriteRenderer;
+                    break;
+            }
+        }
 
     }
 
     private void OnChangeDirection(InputAction.CallbackContext obj)
     {
         _currentDirection = obj.ReadValue<Vector2>().normalized;
+        // going down
+        _faceSpriteRendererNormal.sprite = _currentDirection.y < 0 ? faceSpriteNormalGoingDown : faceSpriteNormal;
+
+        if (_currentDirection.x < 0)
+        {
+            _faceSpriteRendererNormal.flipX = true;
+            _faceSpriteRendererLarge.flipX = true;
+        }
+        else if (_currentDirection.x > 0)
+        {
+            _faceSpriteRendererNormal.flipX = false;
+            _faceSpriteRendererLarge.flipX = false;
+        }
     }
 
     private void OnDashPressed(InputAction.CallbackContext obj)
@@ -54,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
         _dashPower = Variables.Object(gameObject).Get<float>("DashPower");
         IsDash = true;
         _elapsedTime = _dashPower;
+        SoundManager.Instance.PlaySE(dashSoundEffect);
     }
 
     private void OnShotPressed(InputAction.CallbackContext obj)
@@ -75,7 +107,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void RotateFire()
     {
-        _fireParticle.transform.rotation = Quaternion.FromToRotation(Vector3.right, _currentDirection);
+        if (_fireParticle)
+        {
+            _fireParticle.transform.rotation = Quaternion.FromToRotation(Vector3.right, _currentDirection);
+        }
     }
 
     private void FixedUpdate()
@@ -94,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
             var input = _moveAction.ReadValue<Vector2>();
             var vector = input * _playerSpeed * Time.deltaTime;
             var velocity = _rigidbody2D.velocity;
-            _rigidbody2D.AddForce(moveForceMultiplier * (vector*2 - velocity*2), ForceMode2D.Force);
+            _rigidbody2D.AddForce(moveForceMultiplier * (vector * 2 - velocity * 2), ForceMode2D.Force);
         }
 
         RotateFire();
