@@ -37,7 +37,7 @@ public class StsticEnemy : Enemy
 
     private void Shot()
     {
-        SoundManager.Instance.PlaySE(DefaultSE);
+        
         PlayerTranslate = GameObject.FindWithTag("Player");
 
         Vector3 dir = (PlayerTranslate.transform.position - this.transform.position);

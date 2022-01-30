@@ -8,13 +8,11 @@ public class Enemy : MonoBehaviour
     public  bool Hostility ; //“GˆÓ‚ÌØ‚è‘Ö‚¦
     private Enemy nearObj;
 
-    public AudioClip dead;
-    public AudioClip DefaultSE;
-
+    
 
     public void Vanish()
     {
-        SoundManager.Instance.PlaySE(dead);
+        
         Destroy(gameObject.transform.root.gameObject);
         Destroy(gameObject,0.0f);//0•bŒã‚ÉÁ–Å
         

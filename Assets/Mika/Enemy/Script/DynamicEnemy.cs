@@ -67,19 +67,7 @@ public class DynamicEnemy : Enemy
 
     
 
-    void OnBecameVisible()
-    {
-        // •\¦‚³‚ê‚é‚æ‚¤‚É‚È‚Á‚½‚Ìˆ—
-
-        SoundManager.Instance.PlaySE(DefaultSE);
-    }
-    /*
-    void OnBecameInvisible()
-    {
-        // •\¦‚³‚ê‚È‚­‚È‚Á‚½‚Ìˆ—
-        //SoundManager.Instance.StopBGM();
-    }
-    */
+    
 
 }
 
