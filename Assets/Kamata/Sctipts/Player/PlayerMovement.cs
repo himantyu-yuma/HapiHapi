@@ -124,7 +124,7 @@ public class PlayerMovement : MonoBehaviour
             var input = _moveAction.ReadValue<Vector2>();
             var vector = input * _playerSpeed * Time.deltaTime;
             var velocity = _rigidbody2D.velocity;
-            _rigidbody2D.AddForce(moveForceMultiplier * (vector*2 - velocity*2), ForceMode2D.Force);
+            _rigidbody2D.AddForce(moveForceMultiplier * (vector * 2 - velocity * 2), ForceMode2D.Force);
         }
 
         RotateFire();
