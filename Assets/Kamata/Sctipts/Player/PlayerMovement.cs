@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private Collider2D _fireCol;
     private Vector2 _currentDirection = new(1f, 0f);
     private float _elapsedTime;
+    [SerializeField] private float moveForceMultiplier = 1f;
     public bool IsDash { get; set; }
     public bool IsShot { get; set; }
 
@@ -50,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDashPressed(InputAction.CallbackContext obj)
     {
+        _dashPower = Variables.Object(gameObject).Get<float>("DashPower");
         IsDash = true;
         _elapsedTime = _dashPower;
     }
@@ -90,7 +92,9 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             var input = _moveAction.ReadValue<Vector2>();
-            _rigidbody2D.velocity = input * _playerSpeed * Time.deltaTime;
+            var vector = input * _playerSpeed * Time.deltaTime;
+            var velocity = _rigidbody2D.velocity;
+            _rigidbody2D.AddForce(moveForceMultiplier * (vector*2 - velocity*2), ForceMode2D.Force);
         }
 
         RotateFire();
