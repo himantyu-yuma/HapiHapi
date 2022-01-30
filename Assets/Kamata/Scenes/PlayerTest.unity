@@ -123,7 +123,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &640740053
+--- !u!1001 &793656496
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -140,11 +140,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3841486781437895295, guid: 4f38d8be39c13cd40bacc3a05fceeb27, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -89.988
       objectReference: {fileID: 0}
     - target: {fileID: 3841486781437895295, guid: 4f38d8be39c13cd40bacc3a05fceeb27, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 3.04
       objectReference: {fileID: 0}
     - target: {fileID: 3841486781437895295, guid: 4f38d8be39c13cd40bacc3a05fceeb27, type: 3}
       propertyPath: m_LocalPosition.z
@@ -156,15 +156,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3841486781437895295, guid: 4f38d8be39c13cd40bacc3a05fceeb27, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3841486781437895295, guid: 4f38d8be39c13cd40bacc3a05fceeb27, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3841486781437895295, guid: 4f38d8be39c13cd40bacc3a05fceeb27, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3841486781437895295, guid: 4f38d8be39c13cd40bacc3a05fceeb27, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -226,7 +226,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7373381, y: 1}
+    m_SensorSize: {x: 0.9695187, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
