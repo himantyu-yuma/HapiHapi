@@ -83,6 +83,7 @@ public class Enemy : MonoBehaviour, IDamagable
     {
         var hits = Physics2D.OverlapCircleAll(this.transform.position, propagationDist, LayerMask.GetMask("Enemy"))
             .Select(item => item.transform.GetComponent<Enemy>());
+
         foreach (var hit in hits)
         {
             hit.IsHostility = true;

@@ -10,6 +10,8 @@ public class Player : MonoBehaviour, IDamagable
     private float threshold = 70;
 
     private float _playerHp;
+
+    private Animator _animator;
     public float PlayerHp
     {
         get => _playerHp;
@@ -56,11 +58,16 @@ public class Player : MonoBehaviour, IDamagable
     {
         _playerHp = threshold - 1;
         _isLarge = false;
+
+        TryGetComponent(out _animator);
     }
 
     public void Damaged<T>(float damage, T context)
     {
         // TODO: Do something
         PlayerHp -= damage;
+
+        _animator.SetTrigger("DamageTrigger");
+
     }
 }
