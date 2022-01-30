@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private float _dashPower;
     private Vector2 _currentDirection = new(1f, 0f);
     private float _elapsedTime;
+    [SerializeField] private float moveForceMultiplier = 1f;
     public bool IsDash { get; set; }
 
     private void Awake()
@@ -27,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         _playerSpeed = Variables.Object(gameObject).Get<float>("Speed");
-        _dashPower = Variables.Object(gameObject).Get<float>("DashPower");
         _dashAction.started += OnDashPressed;
         _moveAction.performed += OnChangeDirection;
     }
@@ -39,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDashPressed(InputAction.CallbackContext obj)
     {
+        _dashPower = Variables.Object(gameObject).Get<float>("DashPower");
         IsDash = true;
         _elapsedTime = _dashPower;
     }
@@ -57,7 +58,9 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             var input = _moveAction.ReadValue<Vector2>();
-            _rigidbody2D.velocity = input * _playerSpeed * Time.deltaTime;
+            var vector = input * _playerSpeed * Time.deltaTime;
+            var velocity = _rigidbody2D.velocity;
+            _rigidbody2D.AddForce(moveForceMultiplier * (vector*2 - velocity*2), ForceMode2D.Force);
         }
     }
 }
