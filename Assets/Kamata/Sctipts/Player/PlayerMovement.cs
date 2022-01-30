@@ -14,6 +14,11 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _currentDirection = new(1f, 0f);
     private float _elapsedTime;
     [SerializeField] private float moveForceMultiplier = 1f;
+    [SerializeField] private Sprite faceSpriteNormal;
+    [SerializeField] private Sprite faceSpriteNormalGoingDown;
+    private SpriteRenderer _faceSpriteRendererNormal;
+    private SpriteRenderer _faceSpriteRendererLarge;
+    
     public bool IsDash { get; set; }
 
     private void Awake()
@@ -30,11 +35,37 @@ public class PlayerMovement : MonoBehaviour
         _playerSpeed = Variables.Object(gameObject).Get<float>("Speed");
         _dashAction.started += OnDashPressed;
         _moveAction.performed += OnChangeDirection;
+        foreach (var spriteRenderer in GetComponentsInChildren<SpriteRenderer>(true))
+        {
+            switch (spriteRenderer.name)
+            {
+                case "FireBall_Face":
+                    _faceSpriteRendererNormal = spriteRenderer;
+                    break;
+                case "FireBall_Face_Big":
+                    _faceSpriteRendererLarge = spriteRenderer;
+                    break;
+            }
+        }
     }
 
     private void OnChangeDirection(InputAction.CallbackContext obj)
     {
         _currentDirection = obj.ReadValue<Vector2>().normalized;
+        
+        // going down
+        _faceSpriteRendererNormal.sprite = _currentDirection.y < 0 ? faceSpriteNormalGoingDown : faceSpriteNormal;
+
+        if (_currentDirection.x < 0)
+        {
+            _faceSpriteRendererNormal.flipX = true;
+            _faceSpriteRendererLarge.flipX = true;
+        }
+        else if (_currentDirection.x > 0)
+        {
+            _faceSpriteRendererNormal.flipX = false;
+            _faceSpriteRendererLarge.flipX = false;
+        }
     }
 
     private void OnDashPressed(InputAction.CallbackContext obj)
