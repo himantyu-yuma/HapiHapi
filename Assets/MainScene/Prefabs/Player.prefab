@@ -192,6 +192,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveForceMultiplier: 1
+  faceSpriteNormal: {fileID: 21300000, guid: a783fe3dd42dd414ca71f4a559cc12a5, type: 3}
+  faceSpriteNormalGoingDown: {fileID: 21300000, guid: 8edb2cab4e8744b58893d29dba09ac1a, type: 3}
+  _faceSpriteRendererNormal: {fileID: 0}
+  _faceSpriteRendererLarge: {fileID: 0}
 --- !u!1 &3841486781463223050
 GameObject:
   m_ObjectHideFlags: 0
