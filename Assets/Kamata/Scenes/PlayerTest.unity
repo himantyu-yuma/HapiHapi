@@ -536,6 +536,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 100
+--- !u!114 &1600658124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600658102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af53c088856af418e8feed29b14d322c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2073289857
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,6 +728,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2950611815472802069, guid: 535f14ea889424fd783ad835aa8ea92e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2950611815472802069, guid: 535f14ea889424fd783ad835aa8ea92e, type: 3}
       propertyPath: _data._json
       value: '{"nest":{"source":"Macro","macro":0,"embed":null}}'
       objectReference: {fileID: 0}
@@ -726,7 +742,7 @@ PrefabInstance:
     - target: {fileID: 2950611815472802069, guid: 535f14ea889424fd783ad835aa8ea92e, type: 3}
       propertyPath: _data._objectReferences.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: c557b07da10de4664bf9af31e41e0b8e, type: 2}
+      objectReference: {fileID: 11400000, guid: 6a0d30dca4f314a889dbbcfe38a744b7, type: 2}
     - target: {fileID: 2950611815472802079, guid: 535f14ea889424fd783ad835aa8ea92e, type: 3}
       propertyPath: m_Name
       value: Player
