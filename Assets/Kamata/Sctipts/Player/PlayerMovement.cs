@@ -1,7 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.VFX;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -22,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Sprite faceSpriteNormalGoingDown;
     private SpriteRenderer _faceSpriteRendererNormal;
     private SpriteRenderer _faceSpriteRendererLarge;
+
+    [SerializeField] private AudioClip dashSoundEffect;
 
     public bool IsDash { get; set; }
     public bool IsShot { get; set; }
@@ -84,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
         _dashPower = Variables.Object(gameObject).Get<float>("DashPower");
         IsDash = true;
         _elapsedTime = _dashPower;
+        SoundManager.Instance.PlaySE(dashSoundEffect);
     }
 
     private void OnShotPressed(InputAction.CallbackContext obj)
@@ -105,7 +107,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void RotateFire()
     {
-        _fireParticle.transform.rotation = Quaternion.FromToRotation(Vector3.right, _currentDirection);
+        if (_fireParticle)
+        {
+            _fireParticle.transform.rotation = Quaternion.FromToRotation(Vector3.right, _currentDirection);
+        }
     }
 
     private void FixedUpdate()
