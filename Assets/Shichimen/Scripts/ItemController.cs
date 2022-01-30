@@ -19,21 +19,15 @@ public class ItemController : MonoBehaviour
         //タグの名前は仮です
         if (collision.gameObject.tag == "Player")
         {
+            // とりあえず回復処理を記載（多分Player側でやってる）
+            collision.GetComponent<IDamagable>().Damaged(-this.ItemEnergy, this);
             SoundManager.Instance.PlaySE(itemSE);
             Destroy(gameObject);
         }
     }
-    //Update is called once per frame
-    void Update()
-    {
 
-
-    }
     private void OnBecameInvisible()
     {
         Destroy(gameObject);
     }
-
-
-
 }
