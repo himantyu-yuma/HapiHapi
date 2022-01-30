@@ -6,7 +6,12 @@ public class Player : MonoBehaviour, IDamagable
     [SerializeField]
     private GameManager manager = null;
 
+    [SerializeField]
+    private float threshold = 70;
+
     private float _playerHp;
+
+    private Animator _animator;
     public float PlayerHp
     {
         get => _playerHp;
@@ -18,12 +23,21 @@ public class Player : MonoBehaviour, IDamagable
                 _playerHp = 0;
                 // TODO: Gameover
                 manager?.GameOver();
-            } else if (_playerHp > maxHp)
+            }
+            else if (_playerHp >= threshold)
+            {
+                IsLarge = true;
+            }
+            else if (_playerHp < threshold)
+            {
+                IsLarge = false;
+            }
+            else if (_playerHp > maxHp)
             {
                 _playerHp = maxHp;
             }
             // TODO: update UI text?
-            
+
         }
     }
 
@@ -34,7 +48,7 @@ public class Player : MonoBehaviour, IDamagable
         set
         {
             _isLarge = value;
-            Variables.Object(gameObject).Set("IsLarge", _isLarge); 
+            Variables.Object(gameObject).Set("IsLarge", _isLarge);
         }
     }
 
@@ -42,13 +56,18 @@ public class Player : MonoBehaviour, IDamagable
 
     private void Awake()
     {
-        _playerHp = maxHp;
+        _playerHp = threshold - 1;
         _isLarge = false;
+
+        TryGetComponent(out _animator);
     }
 
     public void Damaged<T>(float damage, T context)
     {
         // TODO: Do something
         PlayerHp -= damage;
+
+        _animator.SetTrigger("DamageTrigger");
+
     }
 }
