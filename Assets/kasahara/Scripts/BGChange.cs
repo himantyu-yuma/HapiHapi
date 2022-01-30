@@ -23,5 +23,7 @@ public class BGChange : MonoBehaviour
     {
         spriteRenderers[0].color = new Color(1, 1, 1, (-1 / (thresholds[1] - thresholds[0])) * (this.transform.position.y - thresholds[0]));
         spriteRenderers[1].color = new Color(1, 1, 1, (-1 / (thresholds[2] - thresholds[1])) * (this.transform.position.y - thresholds[1]));
+        spriteRenderers[2].color = new Color(1, 1, 1, (-1 / (thresholds[3] - thresholds[2])) * (this.transform.position.y - thresholds[2]));
+        spriteRenderers[3].color = new Color(1, 1, 1, (-1 / (thresholds[3] - thresholds[3])) * (this.transform.position.y - thresholds[3]));
     }
 }
