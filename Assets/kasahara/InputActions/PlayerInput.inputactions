@@ -25,9 +25,9 @@
                 },
                 {
                     "name": "Shot",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "45c7b7a7-2c23-4fee-b5d4-703d06aca1f2",
-                    "expectedControlType": "Axis",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
