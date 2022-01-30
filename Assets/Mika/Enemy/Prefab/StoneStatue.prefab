@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5760277429842439595}
   - component: {fileID: 5760277429842439594}
   - component: {fileID: 5760277429842439593}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BulletBox
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -128,6 +128,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Hostility: 0
+  dead: {fileID: 8300000, guid: 3006746ead2d5994484a7df32b07ad99, type: 3}
+  DefaultSE: {fileID: 8300000, guid: daa9c0f73669af840a53a33d97d9db71, type: 3}
   bulletPos: {fileID: 5760277429842439591}
   bullet: {fileID: 3734094290571964532, guid: 8d779c90552ac184a813d5d11be6795c, type: 3}
   _timeInterval: 5
@@ -141,7 +143,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5760277430003647610}
   - component: {fileID: 5760277430003647609}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: StoneStatue
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -156,7 +158,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5760277430003647605}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.3, y: 3.3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

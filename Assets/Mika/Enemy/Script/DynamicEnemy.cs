@@ -59,12 +59,29 @@ public class DynamicEnemy : Enemy
 
         if (collision.gameObject.tag == "Bullet")//Á–Å
         {
+            isHostility();
             Vanish();
         }
 
     }
 
+    
+
+    void OnBecameVisible()
+    {
+        // •\¦‚³‚ê‚é‚æ‚¤‚É‚È‚Á‚½‚Ìˆ—
+
+        SoundManager.Instance.PlaySE(DefaultSE);
+    }
+    /*
+    void OnBecameInvisible()
+    {
+        // •\¦‚³‚ê‚È‚­‚È‚Á‚½‚Ìˆ—
+        //SoundManager.Instance.StopBGM();
+    }
+    */
+
 }
 
-    
+
 
